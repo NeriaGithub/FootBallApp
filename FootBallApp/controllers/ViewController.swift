@@ -16,17 +16,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         teamListVM = TeamListViewModel()
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-       
         teamListVM.teamsVM.bind {[weak self] (teams) in
             self?.performSegue(withIdentifier: Constants.splashSegue, sender: self)
         }
         teamListVM.fetchData()
     }
-    
-    
+
+
     // MARK:- Prepare for segue method
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.splashSegue {

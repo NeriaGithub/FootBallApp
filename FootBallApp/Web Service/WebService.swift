@@ -25,7 +25,6 @@ struct WebService {
     // MARK:- Query params methods
     static func  getAreasFilterString(areasIDArray:[String] = ["2072"]) -> String {
        let  filterString = areasIDArray.joined(separator:",")
-        print("?areas=\(filterString)")
         return "?areas=\(filterString)"
     }
     
