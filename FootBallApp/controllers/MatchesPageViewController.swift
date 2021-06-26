@@ -34,14 +34,14 @@ class MatchesPageViewController: UIPageViewController {
         matchesListVM.matchesVM.bind {[weak self] (matchesList) in
             if !matchesList.isEmpty{
                 self?.pageDelegate?.changeConstraint()
-                if let destination = self?.buildSecondController(position: 0) {
+                if let destination = self?.buildMatchDetailViewController(position: 0) {
                     self?.setViewControllers([destination], direction: .forward, animated: true, completion: nil)
                 }
             }
         }
     }
     
-    private  func buildSecondController(position: Int) -> MatchDetailViewController? {
+    private  func buildMatchDetailViewController(position: Int) -> MatchDetailViewController? {
         guard let destination = storyboard?.instantiateViewController(identifier: Constants.matchDetailStoryBoardID) as?  MatchDetailViewController,
               let matchDetailVM = matchesListVM.matchViewModelAt(position: position) else { return nil }
         destination.position = position
@@ -60,14 +60,14 @@ private  func setup() {
 extension MatchesPageViewController:UIPageViewControllerDataSource{
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if let prevDestination = viewController as? MatchDetailViewController {
-            return buildSecondController(position: prevDestination.position - 1)
+            return buildMatchDetailViewController(position: prevDestination.position - 1)
         }
         return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         if let prevDestination = viewController as? MatchDetailViewController {
-            return buildSecondController(position: prevDestination.position + 1)
+            return buildMatchDetailViewController(position: prevDestination.position + 1)
         }
         return nil
     }
